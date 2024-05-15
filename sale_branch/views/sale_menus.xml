@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo><data>
+    <record id="sale_branch_action" model="ir.actions.act_window">
+        <field name="name">Sales Branch</field>
+        <field name="res_model">sale_branch</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="sale_branch_tree_view" model="ir.ui.view">
+        <field name="name">sale_branch_tree</field>
+        <field name="model">sale_branch</field>
+        <field name="arch" type="xml">
+            <tree string="Sales Branch">
+                <field name="name"/>
+                <field name="code"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="sale_branch_view_form" model="ir.ui.view">
+        <field name="name">sale_branch_form</field>
+        <field name="model">sale_branch</field>
+        <field name="arch" type="xml">
+            <form string="Sales Branch">
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name" placeholder="e.g. New York"/></h1>
+                    </div>
+                    <group>
+                        <field name="code"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <menuitem id="sale_branch_menu"
+    parent="sale.menu_sale_config"
+    action="sale_branch_action"
+    sequence="80"
+    />
+
+</data></odoo>
