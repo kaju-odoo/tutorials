@@ -80,7 +80,8 @@ class EstatePropertyOffer(models.Model):
             #record.property_id.write({"state": "sold"})
             record.property_id.write({
                 "selling_price": record.price,
-                "partner_id": record.partner_id
+                "partner_id": record.partner_id,
+                "state": "offer_accepted"
             })
             record.status = "accepted"
         return True

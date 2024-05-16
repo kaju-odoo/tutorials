@@ -1,0 +1,46 @@
+<odoo>
+    <template id="report_invoice_document_inherit" inherit_id="account.report_invoice_document">
+        <xpath expr="//div[@name='delivery_date']" position="after">
+            <!-- Add custom elements here, for example, a custom header -->
+            <div t-attf-class="#{'col-auto col-3 mw-100' if report_type != 'html' else 'col'} mb-2" t-if="o.invoice_user_id and o.move_type == 'out_invoice' and o.state == 'posted'" name="salesman">
+                <strong>Salesman:</strong><br/>
+                <span t-field="o.invoice_user_id">Mitchell Admin</span>
+            </div>
+        </xpath>
+    </template>
+
+    <template id="report_invoice_document_inherit_2" inherit_id="account.document_tax_totals_template">
+        <xpath expr="//tr[@class='border-black o_total']" position="after">
+            <!-- Add custom elements here, for example, a custom header -->
+            <tr class="o_total_with_text">
+                <td></td>
+                <td class="text-end">
+                    <span t-out="o.amount_total_words">31.05</span>
+                </td>
+            </tr>
+            <tr><td colspan="2" >&#160;</td></tr>
+            <tr><td colspan="2" >&#160;</td></tr>
+            <tr class="o_signature">
+                <td colspan="2">
+                    <p>Sign here,</p>
+                </td>
+            </tr>
+            <tr><td colspan="2" >&#160;</td></tr>
+            <tr><td colspan="2" >&#160;</td></tr>
+            <tr><td colspan="2" >&#160;</td></tr>
+            <tr><td colspan="2" >&#160;</td></tr>
+            <tr><td colspan="2" >&#160;</td></tr>
+            <tr><td colspan="2" >&#160;</td></tr>
+            <tr class="border-black">
+                <td colspan="2" >&#160;</td>
+            </tr>
+        </xpath>
+    </template>
+
+    <!-- <template id="report_invoice_document_inherit_3" inherit_id="account.document_tax_totals_template">
+        <xpath expr="//tr[@class='o_total_with_text']" position="after">
+
+        
+        </xpath>
+    </template> -->
+</odoo>

@@ -4,9 +4,10 @@
         'estate',
         'account',
     ],
-    # 'data': [
-    #     'security/ir.model.access.csv',
-    # ],
+    "data": [
+        "report/estate_reports.xml",
+        'report/custom_invoice_report.xml',
+    ],
     'application': True,
     'license': 'LGPL-3',
 }

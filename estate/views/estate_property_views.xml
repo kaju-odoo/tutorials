@@ -23,10 +23,11 @@
                             </div>
                             <div class="o_kanban_record_body">
                                 <field name="state"/>
-                                <div t-if="record.state.raw_value in ['offer_received', 'offer_accepted']">
+                                <div t-if="record.state.raw_value == 'offer_received'">
                                     <span>Best Offer: </span><field name="best_offer"/>
                                 </div>
                                 <div t-if="record.state.raw_value == 'offer_accepted'">
+                                    <span>Best Offer: </span><field name="best_offer"/>
                                     <div><span>Expected Price: </span><field name="selling_price"/></div>
                                 </div>
                             </div>
