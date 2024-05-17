@@ -4,6 +4,14 @@ class EstateProperty(models.Model):
     _inherit = "estate_property"
 
     def action_property_sold(self):
+        try:
+            # This verifies whether the current user has access to the model itself.
+            self.check_access_rights('write') 
+            self.check_access_rule('write')
+        except exceptions.AccessError as e:
+            print("Access Denied:", e)
+            return
+
         partner_id = self.partner_id.id
         move_type = 'out_invoice'
         
@@ -18,7 +26,7 @@ class EstateProperty(models.Model):
         }
         
         # Create an empty account.move
-        new_invoice = self.env['account.move'].create(move_values)
+        new_invoice = self.env['account.move'].sudo().create(move_values)
 
         # Add invoice lines
         line_values = [
@@ -35,6 +43,6 @@ class EstateProperty(models.Model):
         ]
         
         # Add the invoice lines to the account.move
-        new_invoice.write({'invoice_line_ids': line_values})
+        new_invoice.sudo().write({'invoice_line_ids': line_values})
         res = super(EstateProperty, self).action_property_sold()
         return res
