@@ -5,8 +5,6 @@
         'account',
     ],
     "data": [
-        'security/sale_team_security.xml',
-        'security/sale_team_security_rule.xml',
         'security/ir.model.access.csv',
 
         "report/estate_reports.xml",
