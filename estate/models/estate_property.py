@@ -80,8 +80,8 @@ class EstateProperty(models.Model):
             self.garden_area = 10
             self.garden_orientation = "north"
         else:
-            self.garden_area = None
-            self.garden_orientation = None
+            self.garden_area = 0
+            self.garden_orientation = False
 
     @api.constrains("expected_price")
     def _check_expected_price(self):
@@ -96,6 +96,8 @@ class EstateProperty(models.Model):
         for record in self:
             if record.state == "cancelled":
                 raise UserError("Cancelled properties cannot be sold")
+            if not any(offer.status == 'accepted' for offer in record.offer_ids):
+                raise UserError("Cannot sell a property without any accepted offers")
             record.state = "sold"
             return True
     

@@ -28,13 +28,18 @@ class EstatePropertyOffer(models.Model):
     
     @api.model
     def create(self, vals):
+        property_id = self.env['estate_property'].browse(vals.get('property_id'))
+
         # Check if the offer price is lower than existing offers
         existing_offers = self.env['estate_property_offer'].search([('property_id', '=', vals.get('property_id'))])
         if existing_offers and any(vals.get('price') < offer.price for offer in existing_offers):
             raise ValidationError("The offer price cannot be lower than existing offers.")
+    
+        # Check if the property is sold
+        if property_id.state == 'sold':
+            raise ValidationError("Cannot create offer on sold property.")
 
         # Set property state to 'Offer Received'
-        property_id = self.env['estate_property'].browse(vals.get('property_id'))
         property_id.write({'state': 'offer_received'})
 
         return super(EstatePropertyOffer, self).create(vals)
